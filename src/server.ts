@@ -3,7 +3,7 @@ dotenv.config()
 import bodyParser from 'body-parser'
 import express, { Express } from 'express'
 import { authenticateToken } from './middlewares/authenticate-token'
-import { getTasksHandler } from './handlers/get-tasks-handler'
+import { getTasksHandler } from './handlers/get-all-tasks-handler'
 import { signupHandler } from './handlers/signup-handler'
 import { loginHandler } from './handlers/login-handler'
 import { deleteTaskHandler } from './handlers/delete-task-handler'
