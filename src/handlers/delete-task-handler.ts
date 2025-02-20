@@ -18,10 +18,10 @@ export const deleteTaskHandler = async (
       return
     }
 
-    const rowsDeleted = await taskDeleteDb(userId, taskId)
+    const rowsDeleted = await taskDeleteDb({ userId, taskId })
     if (rowsDeleted === 0) {
       // could be invalid userId aswell but highly unlikely
-      res.status(404).json({ message: 'Task does not exist' }) 
+      res.status(404).json({ message: 'Task does not exist' })
       return
     }
 
