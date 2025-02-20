@@ -22,7 +22,7 @@ export const loginHandler = async (
       return
     }
 
-    const user = await getUserFromDb(username)
+    const user = await getUserFromDb({ username })
 
     if (!user) {
       res.status(401).json({ message: 'Invalid username or password' })
