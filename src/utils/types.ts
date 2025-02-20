@@ -40,3 +40,9 @@ export type TaskGetInput = {
   userId: number
   taskId: number
 }
+
+export type TaskUpdateInput = {
+  updatedTitle: string
+  userId: number
+  taskId: number
+}

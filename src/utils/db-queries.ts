@@ -6,6 +6,7 @@ import {
   TaskCreateInput,
   TaskDeleteInput,
   TaskGetInput,
+  TaskUpdateInput,
   UserRowDataPacket,
 } from './types'
 
@@ -71,4 +72,19 @@ export const getTaskFromDb = async ({
     [userId, taskId]
   )
   return rows
+}
+
+export const updateTaskToDb = async ({
+  updatedTitle,
+  userId,
+  taskId,
+}: TaskUpdateInput): Promise<number> => {
+  const [result] = await pool.query<ResultSetHeader>(
+    `
+    UPDATE tasks 
+    SET title = ?
+    WHERE userId = ? AND id = ?`,
+    [updatedTitle, userId, taskId]
+  )
+  return result.affectedRows
 }
