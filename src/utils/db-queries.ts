@@ -77,12 +77,12 @@ export const getAllTasksFromDb = async ({
 export const getTaskFromDb = async ({
   userId,
   taskId,
-}: TaskGetInput): Promise<Task[]> => {
+}: TaskGetInput): Promise<Task> => {
   const [rows] = await pool.query<Task[] & RowDataPacket[]>(
     'SELECT * FROM tasks WHERE userId = ? AND id = ?',
     [userId, taskId]
   )
-  return rows
+  return rows[0]
 }
 
 export const updateTaskToDb = async ({
