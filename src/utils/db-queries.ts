@@ -61,3 +61,14 @@ export const deleteTaskFromDb = async ({
   )
   return result.affectedRows
 }
+
+export const getTaskFromDb = async ({
+  userId,
+  taskId,
+}: TaskGetInput): Promise<Task[]> => {
+  const [rows] = await pool.query<Task[] & RowDataPacket[]>(
+    'SELECT * FROM tasks WHERE userId = ? AND id = ?',
+    [userId, taskId]
+  )
+  return rows
+}
