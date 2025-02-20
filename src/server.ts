@@ -4,6 +4,7 @@ import bodyParser from 'body-parser'
 import express, { Express } from 'express'
 import { getTasksHandler } from './handlers/get-tasks-handler'
 import { signupHandler } from './handlers/signup-handler'
+import { loginHandler } from './handlers/login-handler'
 
 
 
@@ -13,6 +14,7 @@ const port = process.env.PORT || 3000
 app.use(bodyParser.json())
 
 app.post('/api/v1/signup', signupHandler)
+app.post('/api/v1/login', loginHandler)
 
 app.get('/api/v1/tasks', getTasksHandler)
 
