@@ -29,3 +29,17 @@ export const getUserDb = async (
   )
   return rows[0]
 }
+
+export const taskDeleteDb = async (
+  userId: number,
+  taskId: number
+): Promise<number> => {
+  const [result] = await pool.query<ResultSetHeader>(
+    `
+    UPDATE tasks 
+    SET isDeleted = 1
+    WHERE userId = ? AND id = ?`,
+    [userId, taskId]
+  )
+  return result.affectedRows
+}
