@@ -3,7 +3,7 @@ dotenv.config()
 import bodyParser from 'body-parser'
 import express, { Express } from 'express'
 import { authenticateToken } from './middlewares/authenticate-token'
-import { getTasksAllHandler } from './handlers/get-all-tasks-handler'
+import { getAllTasksHandler } from './handlers/get-all-tasks-handler'
 import { signupHandler } from './handlers/signup-handler'
 import { loginHandler } from './handlers/login-handler'
 import { deleteTaskHandler } from './handlers/delete-task-handler'
@@ -19,7 +19,7 @@ app.use(bodyParser.json())
 app.post('/api/v1/signup', signupHandler)
 app.post('/api/v1/login', loginHandler)
 
-app.get('/api/v1/tasks', authenticateToken, getTasksAllHandler)
+app.get('/api/v1/tasks', authenticateToken, getAllTasksHandler)
 app.get('/api/v1/tasks/:id', authenticateToken, getTaskHandler)
 app.post('/api/v1/tasks', authenticateToken, createTaskHandler)
 app.put('/api/v1/tasks/:id', authenticateToken, updateTaskHandler)

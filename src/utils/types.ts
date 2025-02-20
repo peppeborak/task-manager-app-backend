@@ -36,6 +36,10 @@ export type TaskDeleteInput = {
   taskId: number
 }
 
+export type TaskGetAllInput = {
+  userId: number
+}
+
 export type TaskGetInput = {
   userId: number
   taskId: number

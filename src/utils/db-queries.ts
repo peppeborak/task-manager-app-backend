@@ -5,6 +5,7 @@ import {
   Task,
   TaskCreateInput,
   TaskDeleteInput,
+  TaskGetAllInput,
   TaskGetInput,
   TaskUpdateInput,
   UserRowDataPacket,
@@ -61,6 +62,16 @@ export const deleteTaskFromDb = async ({
     [userId, taskId]
   )
   return result.affectedRows
+}
+
+export const getAllTasksFromDb = async ({
+  userId
+}: TaskGetAllInput): Promise<Task[]> => {
+  const [rows] = await pool.query<Task[] & RowDataPacket[]>(
+    'SELECT * FROM tasks WHERE userId = ? AND isDeleted = 0',
+    [userId]
+  )
+  return rows
 }
 
 export const getTaskFromDb = async ({

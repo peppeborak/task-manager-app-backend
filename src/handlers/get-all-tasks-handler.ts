@@ -1,30 +1,21 @@
 import { Request, Response } from 'express'
+import { getAllTasksFromDb } from '../utils/db-queries'
 
-export const getTasksAllHandler = async (
+export const getAllTasksHandler = async (
   req: Request,
   res: Response
 ): Promise<void> => {
   try {
-    const tasks = [
-      {
-        id: 1,
-        userId: 1,
-        title: 'Test',
-        category: null,
-        priorityLevel: 'low',
-        status: null,
-      },
-      {
-        id: 2,
-        userId: 1,
-        title: 'Gym',
-        category: null,
-        priorityLevel: 'high',
-        status: null,
-      },
-    ]
+    const userId = req.user.id
 
-    res.status(200).json(tasks)
+    if (!userId || isNaN(userId)) {
+      res.status(400).json({ message: 'User id is required' })
+      return
+    }
+
+    const tasks = await getAllTasksFromDb({ userId })
+
+    res.status(200).json({ tasks })
     return
   } catch (error) {
     console.log(error)
