@@ -1,9 +1,11 @@
-import mysql, { ResultSetHeader } from 'mysql2/promise'
+import mysql, { ResultSetHeader, RowDataPacket } from 'mysql2/promise'
 import {
   CreateUserInput,
   GetUserInput,
+  Task,
   TaskCreateInput,
   TaskDeleteInput,
+  TaskGetInput,
   UserRowDataPacket,
 } from './types'
 
@@ -14,7 +16,7 @@ const pool = mysql.createPool({
   database: process.env.DB_NAME,
 })
 
-export const createUserDb = async ({
+export const createUserToDb = async ({
   username,
   hashedPassword,
 }: CreateUserInput): Promise<number> => {
@@ -25,7 +27,7 @@ export const createUserDb = async ({
   return result.insertId
 }
 
-export const getUserDb = async ({
+export const getUserFromDb = async ({
   username,
 }: GetUserInput): Promise<UserRowDataPacket> => {
   const [rows] = await pool.query<UserRowDataPacket[]>(
@@ -35,7 +37,7 @@ export const getUserDb = async ({
   return rows[0]
 }
 
-export const taskCreateDb = async ({
+export const createTaskToDb = async ({
   userId,
   title,
 }: TaskCreateInput): Promise<number> => {
@@ -46,7 +48,7 @@ export const taskCreateDb = async ({
   return result.insertId
 }
 
-export const taskDeleteDb = async ({
+export const deleteTaskFromDb = async ({
   userId,
   taskId,
 }: TaskDeleteInput): Promise<number> => {
@@ -59,4 +61,3 @@ export const taskDeleteDb = async ({
   )
   return result.affectedRows
 }
-

@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 
-export const getTasksHandler = async (
+export const getTasksAllHandler = async (
   req: Request,
   res: Response
 ): Promise<void> => {

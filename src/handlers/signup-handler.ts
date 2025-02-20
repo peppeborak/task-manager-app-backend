@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 import bcrypt from 'bcrypt'
-import { createUserDb } from '../utils/db-queries'
+import { createUserToDb } from '../utils/db-queries'
 
 export const signupHandler = async (
   req: Request,
@@ -19,7 +19,7 @@ export const signupHandler = async (
     }
 
     const hashedPassword = await bcrypt.hash(password, 10)
-    const userId = await createUserDb({ username, hashedPassword })
+    const userId = await createUserToDb({ username, hashedPassword })
 
     res.status(201).json(userId)
     return

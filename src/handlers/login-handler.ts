@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
-import { getUserDb } from '../utils/db-queries'
+import { getUserFromDb } from '../utils/db-queries'
 import { Request, Response } from 'express'
 import dotenv from 'dotenv'
 
@@ -22,7 +22,7 @@ export const loginHandler = async (
       return
     }
 
-    const user = await getUserDb(username)
+    const user = await getUserFromDb(username)
 
     if (!user) {
       res.status(401).json({ message: 'Invalid username or password' })

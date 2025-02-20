@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import { taskCreateDb } from '../utils/db-queries'
+import { createTaskToDb } from '../utils/db-queries'
 
 export const createTaskHandler = async (
   req: Request,
@@ -18,7 +18,7 @@ export const createTaskHandler = async (
       return
     }
 
-    const taskId = await taskCreateDb({ userId, title })
+    const taskId = await createTaskToDb({ userId, title })
 
     res.status(201).json({
       task: { userId: userId, id: taskId, title: title },
