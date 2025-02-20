@@ -45,9 +45,9 @@ export const loginHandler = async (
 
     res.status(200).json({ token })
     return
-  } catch (err) {
-    console.log('Error logging in', err)
-    res.status(500).json({ message: 'An error occurred during login' })
+  } catch (error) {
+    console.log(error)
+    res.status(500).json({ message: 'Internal Server Error' })
     return
   }
 }

@@ -27,8 +27,8 @@ export const getTasksHandler = async (
     res.status(200).json(tasks)
     return
   } catch (error) {
-    console.log('Error getting tasks', error)
-    res.status(500).json({ message: 'Error getting tasks' })
+    console.log(error)
+    res.status(500).json({ message: 'Internal Server Error' })
     return
   }
 }

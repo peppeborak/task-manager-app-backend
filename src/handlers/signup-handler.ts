@@ -25,8 +25,8 @@ export const signupHandler = async (
     res.status(201).json(userId)
     return
   } catch (error) {
-    console.log('Error creating user', error)
-    res.status(500).json({ message: 'Error creating user' })
+    console.log(error)
+    res.status(500).json({ message: 'Internal Server Error' })
     return
   }
 }
