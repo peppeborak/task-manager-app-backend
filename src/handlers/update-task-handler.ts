@@ -7,7 +7,8 @@ export const updateTaskHandler = async (
 ): Promise<void> => {
   try {
     const taskId = +req.params.id
-    const { updatedTitle, priority, category, status } = req.body
+    const { updatedTitle, updatedPriority, updatedCategory, updatedStatus } =
+      req.body
     const userId = req.user.id
 
     if (!userId || isNaN(userId)) {
@@ -18,18 +19,24 @@ export const updateTaskHandler = async (
       res.status(400).json({ message: 'Invalid title' })
       return
     }
-    if (priority && !['low', 'medium', 'high'].includes(priority)) {
+    if (
+      updatedPriority &&
+      !['low', 'medium', 'high'].includes(updatedPriority)
+    ) {
       res.status(400).json({
         message:
           'Invalid priority value. It should be "low", "medium", or "high"',
       })
       return
     }
-    if (category && category.trim() === '') {
+    if (updatedCategory && updatedCategory.trim() === '') {
       res.status(400).json({ message: 'Invalid category' })
       return
     }
-    if (status && !['pending', 'in-progress', 'completed'].includes(status)) {
+    if (
+      updatedStatus &&
+      !['pending', 'in-progress', 'completed'].includes(updatedStatus)
+    ) {
       res.status(400).json({
         message:
           'Invalid status value. It should be "pending", "in-progress", or "completed"',
@@ -47,9 +54,9 @@ export const updateTaskHandler = async (
       taskId: taskId,
       userId: userId,
       title: updatedTitle || currentTask.title,
-      priority: priority || currentTask.priority,
-      category: category || currentTask.category,
-      status: status || currentTask.status,
+      priority: updatedPriority || currentTask.priority,
+      category: updatedCategory || currentTask.category,
+      status: updatedStatus || currentTask.status,
     }
 
     const rowsAffected = await updateTaskToDb(updatedTask)
