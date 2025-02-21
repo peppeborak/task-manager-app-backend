@@ -44,6 +44,11 @@ export type TaskGetInput = {
   userId: number
   taskId: number
 }
+export type SearchTaskGetInput = {
+  userId: number
+  searchTerm: string
+}
+
 
 export type TaskUpdateInput = {
   userId: number

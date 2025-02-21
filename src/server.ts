@@ -10,6 +10,7 @@ import { deleteTaskHandler } from './handlers/delete-task-handler'
 import { createTaskHandler } from './handlers/create-task-handler'
 import { getTaskHandler } from './handlers/get-task-handler'
 import { updateTaskHandler } from './handlers/update-task-handler'
+import { searchTaskHandler } from './handlers/search-task-handler'
 
 const app: Express = express()
 const port = process.env.PORT || 3000
@@ -20,8 +21,9 @@ app.post('/api/v1/signup', signupHandler)
 app.post('/api/v1/login', loginHandler)
 
 app.get('/api/v1/tasks', authenticateToken, getAllTasksHandler)
-app.get('/api/v1/tasks/:id', authenticateToken, getTaskHandler)
+app.get('/api/v1/tasks/search', authenticateToken, searchTaskHandler)
 app.post('/api/v1/tasks', authenticateToken, createTaskHandler)
+app.get('/api/v1/tasks/:id', authenticateToken, getTaskHandler)
 app.put('/api/v1/tasks/:id', authenticateToken, updateTaskHandler)
 app.delete('/api/v1/tasks/:id', authenticateToken, deleteTaskHandler)
 

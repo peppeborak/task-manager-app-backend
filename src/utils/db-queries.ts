@@ -2,6 +2,7 @@ import mysql, { ResultSetHeader, RowDataPacket } from 'mysql2/promise'
 import {
   CreateUserInput,
   GetUserInput,
+  SearchTaskGetInput,
   Task,
   TaskCreateInput,
   TaskDeleteInput,
@@ -105,4 +106,15 @@ export const updateTaskToDb = async ({
     [title, priority, category, status, userId, taskId]
   )
   return result.affectedRows
+}
+
+export const searchTaskFromDb = async ({
+  userId,
+  searchTerm,
+}: SearchTaskGetInput): Promise<Task[]> => {
+  const [rows] = await pool.query<Task[] & RowDataPacket[]>(
+    'SELECT * FROM tasks WHERE userId = ? AND title LIKE ?',
+    [userId, `${searchTerm}%`]
+  )
+  return rows
 }
