@@ -2,9 +2,7 @@ import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import { getUserFromDb } from '../utils/db-queries'
 import { Request, Response } from 'express'
-import dotenv from 'dotenv'
 
-dotenv.config()
 
 export const loginHandler = async (
   req: Request,
