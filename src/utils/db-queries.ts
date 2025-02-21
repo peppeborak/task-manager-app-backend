@@ -65,7 +65,7 @@ export const deleteTaskFromDb = async ({
 }
 
 export const getAllTasksFromDb = async ({
-  userId
+  userId,
 }: TaskGetAllInput): Promise<Task[]> => {
   const [rows] = await pool.query<Task[] & RowDataPacket[]>(
     'SELECT * FROM tasks WHERE userId = ? AND isDeleted = 0',
@@ -86,16 +86,23 @@ export const getTaskFromDb = async ({
 }
 
 export const updateTaskToDb = async ({
-  updatedTitle,
   userId,
   taskId,
+  title,
+  priority,
+  category,
+  status,
 }: TaskUpdateInput): Promise<number> => {
   const [result] = await pool.query<ResultSetHeader>(
     `
     UPDATE tasks 
-    SET title = ?
+    SET 
+      title = ?, 
+      priority = ?, 
+      category = ?, 
+      status = ?
     WHERE userId = ? AND id = ?`,
-    [updatedTitle, userId, taskId]
+    [title, priority, category, status, userId, taskId]
   )
   return result.affectedRows
 }

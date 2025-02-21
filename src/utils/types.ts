@@ -4,10 +4,10 @@ export type Task = {
   id: number
   userId: number
   title: string
-  priority: string
+  priority: 'low' | 'medium' | 'high'
   category: string | null
-  status: string
-  created_at: string
+  status: 'pending' | 'in-progress' | 'completed'
+  created_at: Date
   isDeleted: boolean
 }
 
@@ -46,7 +46,10 @@ export type TaskGetInput = {
 }
 
 export type TaskUpdateInput = {
-  updatedTitle: string
   userId: number
   taskId: number
+  title?: string
+  priority?: 'low' | 'medium' | 'high'
+  category?: string | null
+  status?: 'pending' | 'in-progress' | 'completed'
 }
