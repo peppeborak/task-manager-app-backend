@@ -1,5 +1,6 @@
 import { RowDataPacket } from 'mysql2'
 
+
 export type Task = {
   id: number
   userId: number
@@ -44,11 +45,11 @@ export type TaskGetInput = {
   userId: number
   taskId: number
 }
+
 export type SearchTaskGetInput = {
   userId: number
   searchTerm: string
 }
-
 
 export type TaskUpdateInput = {
   userId: number

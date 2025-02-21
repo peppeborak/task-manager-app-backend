@@ -3,29 +3,17 @@ dotenv.config()
 import bodyParser from 'body-parser'
 import express, { Express } from 'express'
 import { authenticateToken } from './middlewares/authenticate-token'
-import { getAllTasksHandler } from './handlers/get-all-tasks-handler'
-import { signupHandler } from './handlers/signup-handler'
-import { loginHandler } from './handlers/login-handler'
-import { deleteTaskHandler } from './handlers/delete-task-handler'
-import { createTaskHandler } from './handlers/create-task-handler'
-import { getTaskHandler } from './handlers/get-task-handler'
-import { updateTaskHandler } from './handlers/update-task-handler'
-import { searchTaskHandler } from './handlers/search-task-handler'
+import { tasksRoutes } from './routes/task-routes'
+import { authRoutes } from './routes/auth-routes'
 
-const app: Express = express()
+export const app: Express = express()
 const port = process.env.PORT || 3000
 
 app.use(bodyParser.json())
 
-app.post('/api/v1/signup', signupHandler)
-app.post('/api/v1/login', loginHandler)
 
-app.get('/api/v1/tasks', authenticateToken, getAllTasksHandler)
-app.get('/api/v1/tasks/search', authenticateToken, searchTaskHandler)
-app.post('/api/v1/tasks', authenticateToken, createTaskHandler)
-app.get('/api/v1/tasks/:id', authenticateToken, getTaskHandler)
-app.put('/api/v1/tasks/:id', authenticateToken, updateTaskHandler)
-app.delete('/api/v1/tasks/:id', authenticateToken, deleteTaskHandler)
+app.use('/api/v1/auth', authRoutes())
+app.use('/api/v1/tasks', authenticateToken, tasksRoutes())
 
 app.listen(port, () => {
   console.log(`[server]: Server is running at http://localhost:${port}`)

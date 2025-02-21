@@ -21,7 +21,6 @@ export const searchTaskHandler = async (
 
     const tasks = await searchTaskFromDb({ userId, searchTerm })
 
-
     res.status(200).json({ tasks })
     return
   } catch (err) {

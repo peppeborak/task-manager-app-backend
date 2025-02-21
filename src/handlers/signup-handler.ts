@@ -19,9 +19,9 @@ export const signupHandler = async (
     }
 
     const hashedPassword = await bcrypt.hash(password, 10)
-    const userId = await createUserToDb({ username, hashedPassword })
+    await createUserToDb({ username, hashedPassword })
 
-    res.status(201).json(userId)
+    res.status(201).json({ message: 'Successfully created account' })
     return
   } catch (error) {
     console.log(error)
