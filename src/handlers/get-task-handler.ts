@@ -21,7 +21,7 @@ export const getTaskHandler = async (
 
     const task = await getTaskFromDb({ userId, taskId })
 
-    if (task) {
+    if (!task) {
       res.status(404).json({ message: 'Task not found' })
       return
     }
