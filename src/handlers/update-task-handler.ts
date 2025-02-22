@@ -10,7 +10,6 @@ export const updateTaskHandler = async (
     const { updatedTitle, updatedPriority, updatedCategory, updatedStatus } =
       req.body
     const userId = req.user.id
-    console.log(updatedStatus)
 
     if (!userId || isNaN(userId)) {
       res.status(400).json({ message: 'User id is required' })
