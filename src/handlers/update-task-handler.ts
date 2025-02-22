@@ -10,6 +10,7 @@ export const updateTaskHandler = async (
     const { updatedTitle, updatedPriority, updatedCategory, updatedStatus } =
       req.body
     const userId = req.user.id
+    console.log(updatedStatus)
 
     if (!userId || isNaN(userId)) {
       res.status(400).json({ message: 'User id is required' })
@@ -57,6 +58,8 @@ export const updateTaskHandler = async (
       priority: updatedPriority || currentTask.priority,
       category: updatedCategory || currentTask.category,
       status: updatedStatus || currentTask.status,
+      created_at: currentTask.created_at,
+      isDeleted: currentTask.isDeleted
     }
 
     const rowsAffected = await updateTaskToDb(updatedTask)

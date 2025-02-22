@@ -15,7 +15,7 @@ export const getAllTasksHandler = async (
 
     const tasks = await getAllTasksFromDb({ userId })
 
-    res.status(200).json({ tasks })
+    res.status(200).json(tasks)
     return
   } catch (error) {
     console.log(error)
