@@ -28,7 +28,6 @@ export const deleteTaskHandler = async (
     res.status(200).json({ message: 'Successfully deleted task' })
     return
   } catch (error) {
-    console.log(error)
     res.status(500).json({ message: 'Internal Server Error' })
     return
   }
