@@ -1,13 +1,14 @@
 import { Request, Response } from 'express'
 import { getTaskFromDb, updateTaskToDb } from '../utils/db-queries'
 
+
 export const updateTaskHandler = async (
   req: Request,
   res: Response
 ): Promise<void> => {
   try {
     const taskId = +req.params.id
-    const { updatedTitle, updatedPriority, updatedCategory, updatedStatus } =
+    const { updatedTitle, updatedPriority, updatedCategory, updatedIsCompleted } =
       req.body
     const userId = req.user.id
 
@@ -33,13 +34,9 @@ export const updateTaskHandler = async (
       res.status(400).json({ message: 'Invalid category' })
       return
     }
-    if (
-      updatedStatus &&
-      !['pending', 'in-progress', 'completed'].includes(updatedStatus)
-    ) {
+    if (updatedIsCompleted !== undefined && ![true, false, 0, 1].includes(updatedIsCompleted)) {
       res.status(400).json({
-        message:
-          'Invalid status value. It should be "pending", "in-progress", or "completed"',
+        message: 'Invalid status value. It should be either true, false, 0, or 1',
       })
       return
     }
@@ -53,11 +50,11 @@ export const updateTaskHandler = async (
     const updatedTask = {
       taskId: taskId,
       userId: userId,
-      title: updatedTitle || currentTask.title,
-      priority: updatedPriority || currentTask.priority,
-      category: updatedCategory || currentTask.category,
-      status: updatedStatus || currentTask.status,
+      title: updatedTitle !== undefined ? updatedTitle : currentTask.title,
+      priority: updatedPriority !== undefined ? updatedPriority : currentTask.priority,
+      category: updatedCategory !== undefined ? updatedCategory : currentTask.category,
       created_at: currentTask.created_at,
+      isCompleted: updatedIsCompleted !== undefined ? updatedIsCompleted : currentTask.isCompleted,
       isDeleted: currentTask.isDeleted
     }
 
@@ -69,7 +66,7 @@ export const updateTaskHandler = async (
     }
 
     res.status(200).json({
-      updatedTask: updatedTask,
+      updatedTask,
     })
     return
   } catch (error) {

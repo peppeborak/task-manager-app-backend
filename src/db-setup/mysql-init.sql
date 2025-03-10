@@ -14,8 +14,8 @@ CREATE TABLE IF NOT EXISTS tasks (
     title VARCHAR(255) NOT NULL,
     priority ENUM('low', 'medium', 'high') DEFAULT 'medium',
     category VARCHAR(100) DEFAULT NULL,
-    status ENUM('pending', 'in-progress', 'completed') DEFAULT 'pending',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    isCompleted BOOLEAN DEFAULT FALSE,
     isDeleted BOOLEAN DEFAULT FALSE,
     FOREIGN KEY (userId) REFERENCES users(id) ON DELETE CASCADE
 );

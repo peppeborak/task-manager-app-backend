@@ -7,8 +7,8 @@ export type Task = {
   title: string
   priority: 'low' | 'medium' | 'high'
   category: string | null
-  status: 'pending' | 'in-progress' | 'completed'
   created_at: Date
+  isCompleted: boolean
   isDeleted: boolean
 }
 
@@ -57,5 +57,5 @@ export type TaskUpdateInput = {
   title?: string
   priority?: 'low' | 'medium' | 'high'
   category?: string | null
-  status?: 'pending' | 'in-progress' | 'completed'
+  isCompleted?: boolean
 }

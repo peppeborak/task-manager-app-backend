@@ -92,7 +92,7 @@ export const updateTaskToDb = async ({
   title,
   priority,
   category,
-  status,
+  isCompleted,
 }: TaskUpdateInput): Promise<number> => {
   const [result] = await pool.query<ResultSetHeader>(
     `
@@ -101,9 +101,9 @@ export const updateTaskToDb = async ({
       title = ?, 
       priority = ?, 
       category = ?, 
-      status = ?
+      isCompleted = ?
     WHERE userId = ? AND id = ?`,
-    [title, priority, category, status, userId, taskId]
+    [title, priority, category, isCompleted, userId, taskId]
   )
   return result.affectedRows
 }
