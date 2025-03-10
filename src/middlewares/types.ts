@@ -1,4 +1,4 @@
 export type TokenUser = {
-  email: string
+  username: string
   id: number
 }
